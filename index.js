@@ -1,6 +1,22 @@
 //carregar o modulo express
 const express = require('express')
 
+//carregar o modulo mongoose
+const mongoose = require('mongoose')
+
+//conectar com o banco de dados revisao
+const conexao = ()=>{
+    mongoose.connect('mongodb+srv://userRevisao:revisao123@cluster1.uman3.mongodb.net/revisao')
+}
+
+//conectar com a colletion infos
+const modelo = new mongoose.Schema({
+    nome:String,
+    turma:String,
+    disciplina:String
+})
+const infos = mongoose.model('infos',modelo)
+
 //executar o modulo express
 const app = express()
 
@@ -8,9 +24,15 @@ const app = express()
 app.set("views",'./')  // o ./ significa pasta principal
 
 //renderizar o arquivo index.ejs na requisição /(root)
-app.get('/',(req,res)=>{
-    res.render('index.ejs',{nome:"Alunos Feiosos",turma:"2EMIB",disciplina:"INW"})
+app.get('/',async(req,res)=>{
+    //conectar com o revisao
+    conexao()
+    //buscar todos os dados de infos
+    const resultado = await infos.find()
+    res.render('index.ejs',{resultado})
 })
 
 //ligar o servidor na porta 3050
-app.listen(3050)
+app.listen(3050,()=>{
+    console.log('Servidor local em http://localhost:3050')
+})
