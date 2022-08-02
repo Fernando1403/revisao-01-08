@@ -1,4 +1,5 @@
 //carregar o modulo express
+const { urlencoded } = require('express')
 const express = require('express')
 
 //carregar o modulo mongoose
@@ -30,6 +31,15 @@ app.get('/',async(req,res)=>{
     //buscar todos os dados de infos
     const resultado = await infos.find()
     res.render('index.ejs',{resultado})
+    //console.log(resultado)
+})
+
+//gravar as informações do formulario no banco de dados
+app.use(urlencoded({extended:false}))
+
+app.post('/',async(req,res)=>{
+    const dados = req.body
+    res.send(dados)
 })
 
 //ligar o servidor na porta 3050

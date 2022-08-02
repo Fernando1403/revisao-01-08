@@ -13,15 +13,24 @@
         <h1 class="text-center">
             Pagina De Revisão
         </h1>
-        <h3 class="text-center">
-            Nome: <%=resultado[0].nome%>
+        <% for (var n=0; n<resultado.length;n++){%>
+        <h3 class="text-center bg-info">
+            Nome: <%=resultado[n].nome%>
         </h3>
         <h3 class="text-center">
-            Turma: <%=resultado[0].turma%>
+            Turma: <%=resultado[n].turma%>
         </h3>
         <h4 class="text-center">
-            Disciplina: <%=resultado[0].disciplina%>
+            Disciplina: <%=resultado[n].disciplina%>
         </h4>
+        <%}%>
+        <form action="" method="post" class="form-control">
+            <h3 class="text-center">Cadastro</h3>
+            <input type="text" name="nome" placeholder="Nome" class="form-control" id=""><br>
+            <input type="text" name="turma" placeholder="Turma" class="form-control" id=""><br>
+            <input type="text" name="disciplina" placeholder="Disciplina" class="form-control" id=""><br>
+            <input type="submit" value="Salvar" class="btn btn-warning form-control">
+        </form>
     </div>
 </body>
 </html>
